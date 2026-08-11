@@ -1,0 +1,394 @@
+{
+  "version": "1.0.0",
+  "layout_name": "admin/checkins/index",
+  "permissions": [
+    "glitter-reservation_popup.checkins.manage"
+  ],
+  "extends": "_admin_base",
+  "meta": {
+    "title": "$t:glitter-reservation_popup.admin.checkins.title",
+    "description": "$t:glitter-reservation_popup.admin.checkins.description"
+  },
+  "globalHeaders": [
+    {
+      "pattern": "/api/modules/glitter-reservation_popup/*",
+      "headers": {
+        "Accept": "application/json"
+      }
+    }
+  ],
+  "init_actions": [
+    {
+      "handler": "setState",
+      "params": {
+        "target": "local",
+        "checkinForm": {
+          "reservation_code": ""
+        },
+        "errors": null
+      }
+    }
+  ],
+  "data_sources": [
+    {
+      "id": "checkins",
+      "type": "api",
+      "endpoint": "/api/modules/glitter-reservation_popup/admin/checkins",
+      "method": "GET",
+      "auto_fetch": true,
+      "auth_required": true,
+      "headers": {
+        "Accept": "application/json"
+      },
+      "params": {
+        "per_page": "20"
+      },
+      "fallback": {
+        "data": {
+          "data": [],
+          "meta": {
+            "current_page": 1,
+            "last_page": 1,
+            "per_page": 20,
+            "total": 0
+          }
+        }
+      }
+    }
+  ],
+  "slots": {
+    "content": [
+      {
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "p-6 bg-gray-50 dark:bg-gray-900 min-h-screen"
+        },
+        "children": [
+          {
+            "type": "composite",
+            "name": "PageHeader",
+            "props": {
+              "title": "$t:glitter-reservation_popup.admin.checkins.title",
+              "description": "$t:glitter-reservation_popup.admin.checkins.description"
+            },
+            "children": [
+              {
+                "id": "nav_events",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/events",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "calendar",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.events"
+                  }
+                ]
+              },
+              {
+                "id": "nav_reservations",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/reservations",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "clipboard-list",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.reservations"
+                  }
+                ]
+              },
+              {
+                "id": "nav_checkins",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/checkins",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "qr-code",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.checkins"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-end mb-4"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Div",
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                    },
+                    "text": "$t:glitter-reservation_popup.admin.checkins.fields.reservation_code"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Input",
+                    "props": {
+                      "name": "reservation_code",
+                      "value": "{{_local.checkinForm?.reservation_code ?? ''}}",
+                      "placeholder": "$t:glitter-reservation_popup.admin.checkins.fields.reservation_code",
+                      "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    },
+                    "actions": [
+                      {
+                        "type": "change",
+                        "handler": "setState",
+                        "params": {
+                          "target": "local",
+                          "checkinForm": "{{Object.assign({}, _local.checkinForm ?? {}, { reservation_code: event.target.value })}}"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "run_checkin",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "apiCall",
+                    "auth_required": true,
+                    "target": "/api/modules/glitter-reservation_popup/admin/checkins",
+                    "params": {
+                      "method": "POST",
+                      "headers": {
+                        "Accept": "application/json"
+                      },
+                      "body": "{{{ reservation_code: _local.checkinForm?.reservation_code, method: 'manual' }}}"
+                    },
+                    "onSuccess": [
+                      {
+                        "handler": "toast",
+                        "params": {
+                          "type": "success",
+                          "message": "$t:glitter-reservation_popup.messages.checked_in"
+                        }
+                      },
+                      {
+                        "handler": "refetchDataSource",
+                        "params": {
+                          "dataSourceId": "checkins"
+                        }
+                      }
+                    ],
+                    "onError": [
+                      {
+                        "handler": "setState",
+                        "params": {
+                          "target": "local",
+                          "errors": "{{error.errors}}"
+                        }
+                      },
+                      {
+                        "handler": "toast",
+                        "params": {
+                          "type": "error",
+                          "message": "$t:glitter-reservation_popup.messages.validation_error"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "qr-code",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.checkin"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Div",
+                "if": "{{(checkins?.data?.data ?? []).length === 0}}",
+                "props": {
+                  "className": "p-6 text-sm text-gray-500 dark:text-gray-400"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.messages.empty_checkins"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Div",
+                "iteration": {
+                  "source": "{{checkins?.data?.data ?? []}}",
+                  "item_var": "checkin",
+                  "index_var": "index"
+                },
+                "props": {
+                  "className": "grid grid-cols-1 lg:grid-cols-6 gap-3 px-4 py-3 border-t border-gray-200 dark:border-gray-700 first:border-t-0"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{checkin?.reservation?.reservation_code ?? checkin?.reservation_id ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{checkin?.checked_in_at ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{checkin?.status ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{checkin?.method ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{checkin?.device_label ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{checkin?.event?.title?.ko ?? checkin?.event_id ?? '-'}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

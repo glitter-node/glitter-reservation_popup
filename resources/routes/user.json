@@ -1,0 +1,45 @@
+{
+    "version": "1.0.0",
+    "routes": [
+        {
+            "path": "*/reservation-popups",
+            "layout": "reservation_popup_user_index",
+            "auth_required": false,
+            "meta": {
+                "title": "$t:glitter-reservation_popup.user.events.index.title"
+            }
+        },
+        {
+            "path": "*/reservation-popups/:slug",
+            "layout": "reservation_popup_user_detail",
+            "auth_required": false,
+            "meta": {
+                "title": "$t:glitter-reservation_popup.user.events.detail.title"
+            }
+        },
+        {
+            "path": "*/reservation-popups/:slug/reserve",
+            "layout": "reservation_popup_user_reserve",
+            "auth_required": false,
+            "meta": {
+                "title": "$t:glitter-reservation_popup.user.reservations.create.title"
+            }
+        },
+        {
+            "path": "*/reservation-popups/reservations/:code",
+            "layout": "reservation_popup_user_reservation_detail",
+            "auth_required": false,
+            "meta": {
+                "title": "$t:glitter-reservation_popup.user.reservations.detail.title"
+            }
+        },
+        {
+            "path": "*/reservation-popups/reservations/:code/cancel",
+            "layout": "reservation_popup_user_cancel",
+            "auth_required": false,
+            "meta": {
+                "title": "$t:glitter-reservation_popup.user.cancellations.create.title"
+            }
+        }
+    ]
+}

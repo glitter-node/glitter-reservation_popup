@@ -1,0 +1,407 @@
+{
+  "version": "1.0.0",
+  "layout_name": "admin/reservations/index",
+  "permissions": [
+    "glitter-reservation_popup.reservations.view"
+  ],
+  "extends": "_admin_base",
+  "meta": {
+    "title": "$t:glitter-reservation_popup.admin.reservations.title",
+    "description": "$t:glitter-reservation_popup.admin.reservations.description"
+  },
+  "globalHeaders": [
+    {
+      "pattern": "/api/modules/glitter-reservation_popup/*",
+      "headers": {
+        "Accept": "application/json"
+      }
+    }
+  ],
+  "init_actions": [],
+  "data_sources": [
+    {
+      "id": "events",
+      "type": "api",
+      "endpoint": "/api/modules/glitter-reservation_popup/admin/events",
+      "method": "GET",
+      "auto_fetch": true,
+      "auth_required": true,
+      "headers": {
+        "Accept": "application/json"
+      },
+      "params": {
+        "per_page": "100"
+      },
+      "fallback": {
+        "data": {
+          "data": [],
+          "meta": {
+            "current_page": 1,
+            "last_page": 1,
+            "per_page": 20,
+            "total": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "reservations",
+      "type": "api",
+      "endpoint": "/api/modules/glitter-reservation_popup/admin/reservations",
+      "method": "GET",
+      "auto_fetch": true,
+      "auth_required": true,
+      "headers": {
+        "Accept": "application/json"
+      },
+      "params": {
+        "per_page": "{{query.per_page || 20}}",
+        "event_id": "{{query.event_id}}",
+        "status": "{{query.status}}",
+        "date_from": "{{query.date_from}}",
+        "date_to": "{{query.date_to}}",
+        "keyword": "{{query.keyword}}"
+      },
+      "fallback": {
+        "data": {
+          "data": [],
+          "meta": {
+            "current_page": 1,
+            "last_page": 1,
+            "per_page": 20,
+            "total": 0
+          }
+        }
+      }
+    }
+  ],
+  "slots": {
+    "content": [
+      {
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "p-6 bg-gray-50 dark:bg-gray-900 min-h-screen"
+        },
+        "children": [
+          {
+            "type": "composite",
+            "name": "PageHeader",
+            "props": {
+              "title": "$t:glitter-reservation_popup.admin.reservations.title",
+              "description": "$t:glitter-reservation_popup.admin.reservations.description"
+            },
+            "children": [
+              {
+                "id": "nav_events",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/events",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "calendar",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.events"
+                  }
+                ]
+              },
+              {
+                "id": "nav_reservations",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/reservations",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "clipboard-list",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.reservations"
+                  }
+                ]
+              },
+              {
+                "id": "nav_checkins",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/checkins",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "qr-code",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.checkins"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "flex flex-wrap gap-2 mb-4"
+            },
+            "children": [
+              {
+                "id": "filter_pending",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/reservations?status=pending",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "filter",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.status.pending"
+                  }
+                ]
+              },
+              {
+                "id": "filter_confirmed",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/reservations?status=confirmed",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "filter",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.status.confirmed"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Div",
+                "if": "{{(reservations?.data?.data ?? []).length === 0}}",
+                "props": {
+                  "className": "p-6 text-sm text-gray-500 dark:text-gray-400"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.messages.empty_reservations"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Div",
+                "iteration": {
+                  "source": "{{reservations?.data?.data ?? []}}",
+                  "item_var": "reservation",
+                  "index_var": "index"
+                },
+                "props": {
+                  "className": "grid grid-cols-1 lg:grid-cols-6 gap-3 px-4 py-3 border-t border-gray-200 dark:border-gray-700 first:border-t-0"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{reservation?.id ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{reservation?.reservation_code ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{reservation?.applicant?.name ?? reservation?.customer_name ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{reservation?.slot?.starts_at ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{reservation?.status ?? '-'}}"
+                  },
+                  {
+                    "id": "reservation_detail",
+                    "type": "basic",
+                    "name": "Button",
+                    "props": {
+                      "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                    },
+                    "actions": [
+                      {
+                        "type": "click",
+                        "handler": "navigate",
+                        "params": {
+                          "path": "/admin/reservation-popups/reservations/{{reservation?.id}}",
+                          "mergeQuery": false
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Icon",
+                        "props": {
+                          "name": "external-link",
+                          "className": "w-4 h-4"
+                        }
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": ""
+                        },
+                        "text": "$t:glitter-reservation_popup.actions.detail"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

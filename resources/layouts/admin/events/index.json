@@ -1,0 +1,415 @@
+{
+  "version": "1.0.0",
+  "layout_name": "admin/events/index",
+  "permissions": [
+    "glitter-reservation_popup.events.view"
+  ],
+  "extends": "_admin_base",
+  "meta": {
+    "title": "$t:glitter-reservation_popup.admin.events.title",
+    "description": "$t:glitter-reservation_popup.admin.events.description"
+  },
+  "globalHeaders": [
+    {
+      "pattern": "/api/modules/glitter-reservation_popup/*",
+      "headers": {
+        "Accept": "application/json"
+      }
+    }
+  ],
+  "init_actions": [],
+  "data_sources": [
+    {
+      "id": "events",
+      "type": "api",
+      "endpoint": "/api/modules/glitter-reservation_popup/admin/events",
+      "method": "GET",
+      "auto_fetch": true,
+      "auth_required": true,
+      "headers": {
+        "Accept": "application/json"
+      },
+      "params": {
+        "page": "{{query.page || 1}}",
+        "per_page": "{{query.per_page || 20}}",
+        "status": "{{query.status}}"
+      },
+      "fallback": {
+        "data": {
+          "data": [],
+          "meta": {
+            "current_page": 1,
+            "last_page": 1,
+            "per_page": 20,
+            "total": 0
+          }
+        }
+      }
+    }
+  ],
+  "slots": {
+    "content": [
+      {
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "p-6 bg-gray-50 dark:bg-gray-900 min-h-screen"
+        },
+        "children": [
+          {
+            "type": "composite",
+            "name": "PageHeader",
+            "props": {
+              "title": "$t:glitter-reservation_popup.admin.events.title",
+              "description": "$t:glitter-reservation_popup.admin.events.description"
+            },
+            "children": [
+              {
+                "id": "nav_events",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/events",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "calendar",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.events"
+                  }
+                ]
+              },
+              {
+                "id": "nav_reservations",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/reservations",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "clipboard-list",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.reservations"
+                  }
+                ]
+              },
+              {
+                "id": "nav_checkins",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/checkins",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "qr-code",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.checkins"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "flex flex-wrap gap-2 mb-4"
+            },
+            "children": [
+              {
+                "id": "create_event",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/events/create",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "plus",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.create_event"
+                  }
+                ]
+              },
+              {
+                "id": "status_draft",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/events?status=draft",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "filter",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.status.draft"
+                  }
+                ]
+              },
+              {
+                "id": "status_published",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/events?status=published",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "filter",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.status.published"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Div",
+                "if": "{{(events?.data?.data ?? []).length === 0}}",
+                "props": {
+                  "className": "p-6 text-sm text-gray-500 dark:text-gray-400"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.messages.empty_events"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Div",
+                "iteration": {
+                  "source": "{{events?.data?.data ?? []}}",
+                  "item_var": "event",
+                  "index_var": "index"
+                },
+                "props": {
+                  "className": "grid grid-cols-1 lg:grid-cols-6 gap-3 px-4 py-3 border-t border-gray-200 dark:border-gray-700 first:border-t-0"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{event?.id ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{event?.title?.ko ?? event?.title?.en ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{event?.location ?? event?.settings?.location ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{event?.starts_at ?? '-'}}"
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": "text-sm text-gray-900 dark:text-white"
+                    },
+                    "text": "{{event?.status ?? '-'}}"
+                  },
+                  {
+                    "id": "event_detail",
+                    "type": "basic",
+                    "name": "Button",
+                    "props": {
+                      "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                    },
+                    "actions": [
+                      {
+                        "type": "click",
+                        "handler": "navigate",
+                        "params": {
+                          "path": "/admin/reservation-popups/events/{{event?.id}}",
+                          "mergeQuery": false
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Icon",
+                        "props": {
+                          "name": "external-link",
+                          "className": "w-4 h-4"
+                        }
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": ""
+                        },
+                        "text": "$t:glitter-reservation_popup.actions.detail"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

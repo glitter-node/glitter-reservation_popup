@@ -1,0 +1,662 @@
+{
+  "version": "1.0.0",
+  "layout_name": "admin/events/create",
+  "permissions": [
+    "glitter-reservation_popup.events.create"
+  ],
+  "extends": "_admin_base",
+  "meta": {
+    "title": "$t:glitter-reservation_popup.admin.events.create",
+    "description": "$t:glitter-reservation_popup.admin.events.create_description"
+  },
+  "globalHeaders": [
+    {
+      "pattern": "/api/modules/glitter-reservation_popup/*",
+      "headers": {
+        "Accept": "application/json"
+      }
+    }
+  ],
+  "init_actions": [
+    {
+      "handler": "setState",
+      "params": {
+        "target": "local",
+        "eventForm": {
+          "status": "draft"
+        },
+        "statusOptions": [
+          {
+            "value": "draft",
+            "label": "$t:glitter-reservation_popup.status.draft"
+          },
+          {
+            "value": "published",
+            "label": "$t:glitter-reservation_popup.status.published"
+          },
+          {
+            "value": "archived",
+            "label": "$t:glitter-reservation_popup.status.archived"
+          }
+        ],
+        "errors": null
+      }
+    }
+  ],
+  "data_sources": [],
+  "slots": {
+    "content": [
+      {
+        "type": "basic",
+        "name": "Div",
+        "props": {
+          "className": "p-6 bg-gray-50 dark:bg-gray-900 min-h-screen"
+        },
+        "children": [
+          {
+            "type": "composite",
+            "name": "PageHeader",
+            "props": {
+              "title": "$t:glitter-reservation_popup.admin.events.create",
+              "description": "$t:glitter-reservation_popup.admin.events.create_description"
+            },
+            "children": [
+              {
+                "id": "nav_events",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/events",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "calendar",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.events"
+                  }
+                ]
+              },
+              {
+                "id": "nav_reservations",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/reservations",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "clipboard-list",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.reservations"
+                  }
+                ]
+              },
+              {
+                "id": "nav_checkins",
+                "type": "basic",
+                "name": "Button",
+                "props": {
+                  "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                },
+                "actions": [
+                  {
+                    "type": "click",
+                    "handler": "navigate",
+                    "params": {
+                      "path": "/admin/reservation-popups/checkins",
+                      "mergeQuery": false
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Icon",
+                    "props": {
+                      "name": "qr-code",
+                      "className": "w-4 h-4"
+                    }
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Span",
+                    "props": {
+                      "className": ""
+                    },
+                    "text": "$t:glitter-reservation_popup.actions.checkins"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "basic",
+            "name": "Div",
+            "props": {
+              "className": "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5"
+            },
+            "children": [
+              {
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "grid grid-cols-1 md:grid-cols-2 gap-4"
+                },
+                "children": [
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.title"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "text",
+                          "name": "title_ko",
+                          "value": "{{_local.eventForm?.title_ko ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.title",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"title_ko\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.slug"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "text",
+                          "name": "slug",
+                          "value": "{{_local.eventForm?.slug ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.slug",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"slug\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.location"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "text",
+                          "name": "location",
+                          "value": "{{_local.eventForm?.location ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.location",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"location\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.starts_at"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "datetime-local",
+                          "name": "starts_at",
+                          "value": "{{_local.eventForm?.starts_at ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.starts_at",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"starts_at\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.ends_at"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "datetime-local",
+                          "name": "ends_at",
+                          "value": "{{_local.eventForm?.ends_at ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.ends_at",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"ends_at\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.opening_time"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "datetime-local",
+                          "name": "opening_time",
+                          "value": "{{_local.eventForm?.opening_time ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.opening_time",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"opening_time\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.closing_time"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "datetime-local",
+                          "name": "closing_time",
+                          "value": "{{_local.eventForm?.closing_time ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.closing_time",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"closing_time\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.slot_duration"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "number",
+                          "name": "slot_duration",
+                          "value": "{{_local.eventForm?.slot_duration ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.slot_duration",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"slot_duration\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.slot_capacity"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Input",
+                        "props": {
+                          "type": "number",
+                          "name": "slot_capacity",
+                          "value": "{{_local.eventForm?.slot_capacity ?? ''}}",
+                          "placeholder": "$t:glitter-reservation_popup.admin.events.fields.slot_capacity",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { \"slot_capacity\": event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "basic",
+                    "name": "Div",
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": "block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1"
+                        },
+                        "text": "$t:glitter-reservation_popup.admin.events.fields.status"
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Select",
+                        "props": {
+                          "name": "status",
+                          "value": "{{_local.eventForm?.status ?? 'draft'}}",
+                          "options": "{{_local.statusOptions ?? []}}",
+                          "className": "w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        },
+                        "actions": [
+                          {
+                            "type": "change",
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "eventForm": "{{Object.assign({}, _local.eventForm ?? {}, { status: event.target.value })}}"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "name": "Div",
+                "props": {
+                  "className": "mt-4 flex gap-2"
+                },
+                "children": [
+                  {
+                    "id": "save_event",
+                    "type": "basic",
+                    "name": "Button",
+                    "props": {
+                      "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                    },
+                    "actions": [
+                      {
+                        "type": "click",
+                        "handler": "apiCall",
+                        "auth_required": true,
+                        "target": "/api/modules/glitter-reservation_popup/admin/events",
+                        "params": {
+                          "method": "POST",
+                          "headers": {
+                            "Accept": "application/json"
+                          },
+                          "body": "{{{ slug: _local.eventForm?.slug, title: { ko: _local.eventForm?.title_ko }, status: _local.eventForm?.status ?? 'draft', visibility: 'public', starts_at: _local.eventForm?.starts_at, ends_at: _local.eventForm?.ends_at, reservation_opens_at: _local.eventForm?.opening_time, reservation_closes_at: _local.eventForm?.closing_time, settings: { location: _local.eventForm?.location, slot_duration: _local.eventForm?.slot_duration, slot_capacity: _local.eventForm?.slot_capacity } }}}"
+                        },
+                        "onSuccess": [
+                          {
+                            "handler": "toast",
+                            "params": {
+                              "type": "success",
+                              "message": "$t:glitter-reservation_popup.messages.created"
+                            }
+                          },
+                          {
+                            "handler": "navigate",
+                            "params": {
+                              "path": "/admin/reservation-popups/events"
+                            }
+                          }
+                        ],
+                        "onError": [
+                          {
+                            "handler": "setState",
+                            "params": {
+                              "target": "local",
+                              "errors": "{{error.errors}}"
+                            }
+                          },
+                          {
+                            "handler": "toast",
+                            "params": {
+                              "type": "error",
+                              "message": "$t:glitter-reservation_popup.messages.validation_error"
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Icon",
+                        "props": {
+                          "name": "save",
+                          "className": "w-4 h-4"
+                        }
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": ""
+                        },
+                        "text": "$t:glitter-reservation_popup.actions.save"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "cancel_event",
+                    "type": "basic",
+                    "name": "Button",
+                    "props": {
+                      "className": "inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                    },
+                    "actions": [
+                      {
+                        "type": "click",
+                        "handler": "navigate",
+                        "params": {
+                          "path": "/admin/reservation-popups/events",
+                          "mergeQuery": false
+                        }
+                      }
+                    ],
+                    "children": [
+                      {
+                        "type": "basic",
+                        "name": "Icon",
+                        "props": {
+                          "name": "x",
+                          "className": "w-4 h-4"
+                        }
+                      },
+                      {
+                        "type": "basic",
+                        "name": "Span",
+                        "props": {
+                          "className": ""
+                        },
+                        "text": "$t:glitter-reservation_popup.actions.cancel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
