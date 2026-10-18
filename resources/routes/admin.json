@@ -1,0 +1,12 @@
+{
+    "version": "1.0.0",
+    "routes": [
+        {"path": "*/admin/reservation-popups", "layout": "admin/index", "auth_required": true, "meta": {"title": "$t:glitter-reservation_popup.admin.title", "permission": "glitter-reservation_popup.events.view"}},
+        {"path": "*/admin/reservation-popups/events", "layout": "admin/events/index", "auth_required": true, "meta": {"title": "$t:glitter-reservation_popup.admin.events.title", "permission": "glitter-reservation_popup.events.view"}},
+        {"path": "*/admin/reservation-popups/events/create", "layout": "admin/events/create", "auth_required": true, "meta": {"title": "$t:glitter-reservation_popup.admin.events.create", "permission": "glitter-reservation_popup.events.create"}},
+        {"path": "*/admin/reservation-popups/events/:event", "layout": "admin/events/show", "auth_required": true, "meta": {"title": "$t:glitter-reservation_popup.admin.events.detail", "permission": "glitter-reservation_popup.events.view"}},
+        {"path": "*/admin/reservation-popups/reservations", "layout": "admin/reservations/index", "auth_required": true, "meta": {"title": "$t:glitter-reservation_popup.admin.reservations.title", "permission": "glitter-reservation_popup.reservations.view"}},
+        {"path": "*/admin/reservation-popups/reservations/:reservation", "layout": "admin/reservations/show", "auth_required": true, "meta": {"title": "$t:glitter-reservation_popup.admin.reservations.detail", "permission": "glitter-reservation_popup.reservations.view"}},
+        {"path": "*/admin/reservation-popups/checkins", "layout": "admin/checkins/index", "auth_required": true, "meta": {"title": "$t:glitter-reservation_popup.admin.checkins.title", "permission": "glitter-reservation_popup.checkins.manage"}}
+    ]
+}

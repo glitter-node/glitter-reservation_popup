@@ -1,0 +1,40 @@
+{
+    "id": "glitter-reservation_popup",
+    "identifier": "glitter-reservation_popup",
+    "vendor": "Glitter.kr",
+    "name": {
+        "ko": "반짝이 예약 팝업",
+        "en": "Glitter Reservation Popup"
+    },
+    "version": "0.1.1",
+    "license": "MIT",
+    "author": "Glitter.kr",
+    "description": {
+        "ko": "Gnuboard 7 JSON Layout 기반 팝업 이벤트 예약 모듈",
+        "en": "Popup event reservation module for Gnuboard 7 JSON Layout"
+    },
+    "homepage": "https://glitter.kr",
+    "repository": "",
+    "support": {
+        "docs": "",
+        "issues": ""
+    },
+    "keywords": [
+        "gnuboard7",
+        "reservation",
+        "popup",
+        "qr-checkin",
+        "module",
+        "glitter"
+    ],
+    "category": "business",
+    "portable_bundle": true,
+    "g7_version": ">=7.0.0-beta.1",
+    "requires": {
+        "g7": ">=7.0.0-beta.1"
+    },
+    "dependencies": {
+        "modules": {},
+        "plugins": {}
+    }
+}

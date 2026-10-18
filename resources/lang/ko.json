@@ -1,0 +1,190 @@
+{
+    "validation": {
+        "required": "필수 값을 입력해 주세요.",
+        "required_without": "필수 값 중 하나를 입력해 주세요.",
+        "array": "배열 형식으로 입력해 주세요.",
+        "string": "문자열 형식으로 입력해 주세요.",
+        "integer": "정수 형식으로 입력해 주세요.",
+        "date": "날짜 형식이 올바르지 않습니다.",
+        "email": "이메일 형식이 올바르지 않습니다.",
+        "max": "입력 값이 허용 길이를 초과했습니다.",
+        "min": "입력 값이 최소 조건을 만족하지 않습니다.",
+        "exists": "선택한 값을 찾을 수 없습니다.",
+        "unique": "이미 사용 중인 값입니다.",
+        "in": "허용되지 않는 값입니다.",
+        "timezone": "시간대 값이 올바르지 않습니다.",
+        "after": "종료 시각은 시작 시각 이후여야 합니다.",
+        "after_or_equal": "종료 시각은 시작 시각과 같거나 이후여야 합니다.",
+        "alpha_dash": "영문, 숫자, 대시, 밑줄만 사용할 수 있습니다."
+    },
+    "success": "요청이 처리되었습니다.",
+    "created": "생성되었습니다.",
+    "updated": "수정되었습니다.",
+    "deleted": "삭제되었습니다.",
+    "errors": {
+        "unprocessable": "요청을 처리할 수 없습니다.",
+        "server": "요청 처리 중 오류가 발생했습니다."
+    },
+    "events": {
+        "not_found": "예약 팝업 이벤트를 찾을 수 없습니다."
+    },
+    "slots": {
+        "not_found": "예약 슬롯을 찾을 수 없습니다.",
+        "full": "예약 가능한 슬롯 정원이 남아 있지 않습니다."
+    },
+    "reservations": {
+        "not_found": "예약을 찾을 수 없습니다.",
+        "not_available": "현재 예약할 수 없는 팝업 이벤트입니다.",
+        "duplicate": "이미 접수된 예약이 있습니다.",
+        "invalid_status": "예약 상태 값이 올바르지 않습니다."
+    },
+    "cancellations": {
+        "not_allowed": "현재 상태에서는 예약을 취소할 수 없습니다."
+    },
+    "checkins": {
+        "duplicate": "이미 체크인된 예약입니다.",
+        "not_allowed": "현재 상태에서는 체크인할 수 없습니다."
+    },
+    "admin": {
+        "title": "예약 팝업 관리",
+        "description": "이벤트, 슬롯, 예약, 체크인을 관리합니다.",
+        "summary": {
+            "total_events": "전체 이벤트 수",
+            "active_events": "활성 이벤트 수",
+            "today_reservations": "오늘 예약 수",
+            "today_checkins": "오늘 체크인 수",
+            "recent_reservations": "최근 예약"
+        },
+        "events": {
+            "title": "이벤트 관리",
+            "description": "예약 팝업 이벤트 목록을 관리합니다.",
+            "create": "이벤트 생성",
+            "create_description": "예약 팝업 이벤트 기본 정보를 입력합니다.",
+            "detail": "이벤트 상세",
+            "detail_description": "이벤트 정보, 슬롯, 예약 현황을 확인합니다.",
+            "slots": "슬롯 목록",
+            "index": {
+                "title": "예약 팝업 관리"
+            },
+            "edit": {
+                "title": "예약 팝업 수정"
+            },
+            "fields": {
+                "id": "ID",
+                "event": "이벤트",
+                "title": "이벤트명",
+                "slug": "슬러그",
+                "location": "장소",
+                "period": "기간",
+                "starts_at": "시작 일시",
+                "ends_at": "종료 일시",
+                "opening_time": "예약 오픈 일시",
+                "closing_time": "예약 마감 일시",
+                "slot_duration": "슬롯 길이",
+                "slot_capacity": "슬롯 정원",
+                "status": "상태"
+            }
+        },
+        "slots": {
+            "fields": {
+                "id": "슬롯 ID",
+                "starts_at": "시작 일시",
+                "ends_at": "종료 일시",
+                "capacity": "정원",
+                "remaining": "잔여",
+                "status": "상태"
+            }
+        },
+        "reservations": {
+            "title": "예약 관리",
+            "description": "이벤트별 예약 목록을 확인합니다.",
+            "detail": "예약 상세",
+            "detail_description": "예약 상태, 취소 정보, 체크인 정보를 확인합니다.",
+            "recent": "최근 예약",
+            "event_filter_required": "이벤트 필터를 선택하면 예약 목록이 표시됩니다.",
+            "cancellation_info": "취소 정보",
+            "checkin_info": "체크인 정보",
+            "index": {
+                "title": "예약 목록"
+            },
+            "fields": {
+                "id": "예약 ID",
+                "code": "예약 코드",
+                "applicant": "신청자",
+                "slot": "슬롯",
+                "status": "상태"
+            }
+        },
+        "checkin": {
+            "title": "QR 체크인"
+        },
+        "checkins": {
+            "title": "체크인 관리",
+            "description": "QR 또는 예약 코드로 체크인을 처리합니다.",
+            "fields": {
+                "reservation": "예약",
+                "reservation_code": "예약 코드",
+                "checked_in_at": "체크인 일시",
+                "status": "상태",
+                "method": "방식",
+                "device": "기기"
+            }
+        }
+    },
+    "actions": {
+        "events": "이벤트",
+        "reservations": "예약",
+        "checkins": "체크인",
+        "create_event": "이벤트 생성",
+        "detail": "상세",
+        "save": "저장",
+        "cancel": "취소",
+        "generate_slots": "슬롯 자동 생성",
+        "confirm": "확정",
+        "cancel_reservation": "예약 취소",
+        "checkin": "체크인 실행"
+    },
+    "status": {
+        "draft": "초안",
+        "published": "공개",
+        "archived": "보관",
+        "pending": "대기",
+        "confirmed": "확정",
+        "cancelled": "취소",
+        "checked_in": "체크인 완료"
+    },
+    "messages": {
+        "created": "생성되었습니다.",
+        "updated": "수정되었습니다.",
+        "checked_in": "체크인이 처리되었습니다.",
+        "slots_generated": "슬롯이 생성되었습니다.",
+        "validation_error": "입력값을 확인해 주세요.",
+        "empty_events": "표시할 이벤트가 없습니다.",
+        "empty_slots": "표시할 슬롯이 없습니다.",
+        "empty_reservations": "표시할 예약이 없습니다.",
+        "empty_checkins": "표시할 체크인이 없습니다."
+    },
+    "user": {
+        "events": {
+            "index": {
+                "title": "예약 팝업"
+            },
+            "detail": {
+                "title": "예약 팝업 상세"
+            }
+        },
+        "reservations": {
+            "create": {
+                "title": "예약 신청"
+            },
+            "detail": {
+                "title": "예약 확인"
+            }
+        },
+        "cancellations": {
+            "create": {
+                "title": "예약 취소"
+            }
+        }
+    }
+}

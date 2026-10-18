@@ -1,0 +1,17 @@
+{
+    "name": "modules/glitter-reservation_popup",
+    "description": "Reservation popup module for Gnuboard7",
+    "type": "library",
+    "version": "0.1.0",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Modules\\Glitter\\ReservationPopup\\": "src/",
+            "Modules\\Glitter\\ReservationPopup\\Database\\Seeders\\": "database/seeders/",
+            "Modules\\Glitter\\ReservationPopup\\Database\\Factories\\": "database/factories/"
+        }
+    },
+    "require": {
+        "php": "^8.2"
+    }
+}
